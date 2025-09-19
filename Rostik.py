@@ -35,7 +35,7 @@ def main():
         num_shots = 10
 
         print("\n")
-        print(f"{'№ shot':<15}{'Shot coordinate':<25}{'Результат':<10}")
+        print(f"{'№ shot':<15}{'Shot coordinate':<25}{'Result':<10}")
 
         for i in range(1, num_shots + 1):
 
