@@ -1,69 +1,54 @@
 import random
 
-# Функція для перевірки потрапляння в мішень (заштриховану область)
 def check_point_in_region(x, y, R):
-    """
-    Перевіряє, чи знаходиться точка (x, y) у заштрихованій області.
-    Повертає True, якщо потрапила, і False в іншому випадку.
-    """
-    # Обчислення квадрата відстані
+
     distance_squared = x**2 + y**2
     r_squared = R**2
 
-    # Умова для першого квадранта (x >= 0 і y >= 0)
+
     in_first_quadrant = x >= 0 and y >= 0
-    # Умова для третього квадранта (x <= 0 і y <= 0)
     in_third_quadrant = x <= 0 and y <= 0
 
-    # Перевірка, чи точка знаходиться всередині або на межі заштрихованих частин
+
     if distance_squared <= r_squared:
         if in_first_quadrant or in_third_quadrant:
             return True
 
-    # Якщо умови не виконуються, повертаємо False
+
     return False
 
-# Функція для генерації випадкових координат
 def generate_shot(R):
-    """
-    Генерує випадкові координати (x, y) для пострілу.
-    Діапазон координат [-1.5*R, 1.5*R] для достовірної симуляції.
-    """
+
     x = random.uniform(-1.5 * R, 1.5 * R)
     y = random.uniform(-1.5 * R, 1.5 * R)
     return (x, y)
 
-# Головна частина програми
+# Головна частина
 def main():
     try:
-        # Задаємо радіус мішені
-        R = float(input("Введіть радіус мішені R: "))
+
+        R = float(input("Enter the target radius R: "))
         if R <= 0:
-            print("Радіус має бути додатним числом.")
+            print("Radius must be a positive number.")
             return
 
         num_shots = 10
 
-        # Виведення заголовка таблиці
         print("\n")
-        print(f"{'№ пострілу':<15}{'Координати пострілу':<25}{'Результат':<10}")
+        print(f"{'№ shot':<15}{'Shot coordinate':<25}{'Результат':<10}")
 
-        # Використання циклу `for` для симуляції серії пострілів
         for i in range(1, num_shots + 1):
-            # Генеруємо координати
+
             x, y = generate_shot(R)
 
-            # Перевіряємо влучання
             hit = check_point_in_region(x, y, R)
 
-            # Визначаємо текстовий результат
-            result_text = "потрапив в мішень" if hit else "мішень не ушкоджена"
+            result_text = "hit the target" if hit else "target is not damaged"
 
-            # Виведення рядка таблиці
             print(f"{i:<15}({x:.2f}, {y:.2f}):{result_text:^25}")
 
     except ValueError:
-        print("Помилка: Некоректний формат введених даних. Введіть число.")
+        print("Error: Incorrect format of the entered data. Please enter a number..")
 
 if __name__ == "__main__":
     main()
